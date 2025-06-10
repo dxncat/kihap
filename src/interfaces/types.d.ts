@@ -56,3 +56,13 @@ export interface News {
     dojoId: string
     dojo?: Dojo | null
 }
+
+export interface Sessions {
+    id: string
+    tittle: string
+    description: string
+    startTime: Date
+    endTime: Date
+    rankId: number
+    rank?: Rank | null
+}
