@@ -1,7 +1,12 @@
 import { getNewsByDojoId } from "@/actions";
 import { auth } from "@/auth.config";
 import { NewsHeader, NewsList } from "@/components";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
+
+export const metadata: Metadata = {
+    title: 'Noticias'
+}
 
 export default async function NewsPage() {
 
