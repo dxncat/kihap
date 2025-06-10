@@ -32,7 +32,7 @@ export function CalendarHeader({ isMaster }: { isMaster: boolean }) {
                         </Button>
                     </Link>
                     {isMaster && (
-                        <Link href="/calendar/create">
+                        <Link href="/calendar/new">
                             <Button className="bg-gradient-to-r from-red-500 to-yellow-500 hover:from-red-600 hover:to-yellow-600 w-full sm:w-auto">
                                 <Plus className="w-4 h-4 mr-2" />
                                 Nueva Sesión
