@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id     String @id @default(dbgenerated("gen_random_uuid()"))
+  userId String @unique
+  User   User   @relation(fields: [userId], references: [id])
+}
+
+model Attendance {
+  id        String  @id @default(dbgenerated("gen_random_uuid()"))
+  studentId String
+  sessionId String
+  attended  Boolean @default(false)
+  hours     Float
+  Session   Session @relation(fields: [sessionId], references: [id])
+  Student   Student @relation(fields: [studentId], references: [id])
+}
+
+model Dojo {
+  id          String    @id @default(dbgenerated("gen_random_uuid()"))
+  code        String    @unique
+  name        String
+  description String?
+  createdAt   DateTime  @default(now())
+  masterId    String
+  Master      Master    @relation(fields: [masterId], references: [id])
+  News        News[]
+  Session     Session[]
+  Student     Student[]
+}
+
+model Master {
+  id     String @id @default(dbgenerated("gen_random_uuid()"))
+  userId String @unique
+  Dojo   Dojo[]
+  User   User   @relation(fields: [userId], references: [id])
+}
+
+model News {
+  id        String   @id @default(dbgenerated("gen_random_uuid()"))
+  dojoId    String
+  title     String
+  content   String
+  createdAt DateTime @default(now())
+  Dojo      Dojo     @relation(fields: [dojoId], references: [id])
+}
+
+model Rank {
+  id            Int           @id @default(autoincrement())
+  name          String        @unique
+  level         Int           @unique
+  description   String
+  hoursRequired Int
+  RankHistory   RankHistory[]
+  Session       Session[]
+  Student       Student[]
+}
+
+model RankHistory {
+  id         String    @id @default(dbgenerated("gen_random_uuid()"))
+  studentId  String
+  rankId     Int
+  createdAt  DateTime  @default(now())
+  finishedAt DateTime?
+  Rank       Rank      @relation(fields: [rankId], references: [id])
+  Student    Student   @relation(fields: [studentId], references: [id])
+}
+
+model Session {
+  id          String       @id @default(dbgenerated("gen_random_uuid()"))
+  dojoId      String
+  title       String
+  description String?
+  startTime   DateTime
+  endTime     DateTime
+  rankId      Int
+  Attendance  Attendance[]
+  Dojo        Dojo         @relation(fields: [dojoId], references: [id])
+  Rank        Rank         @relation(fields: [rankId], references: [id])
+}
+
+model Student {
+  id           String        @id @default(dbgenerated("gen_random_uuid()"))
+  userId       String        @unique
+  dojoId       String
+  rankId       Int           @default(1)
+  currentHours Int           @default(0)
+  Attendance   Attendance[]
+  RankHistory  RankHistory[]
+  Dojo         Dojo          @relation(fields: [dojoId], references: [id])
+  Rank         Rank          @relation(fields: [rankId], references: [id])
+  User         User          @relation(fields: [userId], references: [id])
+}
+
+model User {
+  id        String   @id @default(dbgenerated("gen_random_uuid()"))
+  email     String   @unique
+  password  String
+  name      String
+  image     String?
+  role      Role     @default(STUDENT)
+  createdAt DateTime @default(now())
+  Admin     Admin?
+  Master    Master?
+  Student   Student?
+}
+
+enum Role {
+  SUPER_ADMIN
+  MASTER
+  STUDENT
+}
