@@ -59,10 +59,10 @@ export interface News {
 
 export interface Sessions {
     id: string
-    tittle: string
-    description: string
+    title: string
+    description?: string | null
     startTime: Date
     endTime: Date
     rankId: number
-    rank?: Rank | null
+    Rank?: Rank | null
 }

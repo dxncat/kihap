@@ -2,11 +2,17 @@
 
 import prisma from "@/lib/prisma";
 
-export async function getSessionsByDojoId(dojoId: string) {
+interface Props {
+    dojoId: string;
+    rankId: number;
+}
+
+export async function getSessionsByDojoId({ dojoId, rankId }: Props) {
     try {
         const sessions = await prisma.session.findMany({
             where: {
                 dojoId: dojoId,
+                rankId: rankId,
             },
             orderBy: {
                 startTime: "desc",

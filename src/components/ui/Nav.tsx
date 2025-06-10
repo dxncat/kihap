@@ -7,10 +7,16 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { titleFont } from "@/config/fonts";
 import Image from 'next/image';
+import { useSession } from "next-auth/react";
+import { logout } from "@/actions";
 
 export function Nav() {
 
+    const { data: session } = useSession();
     const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const isAuthenticated = !!session?.user
+    const isAdmin = session?.user?.role !== 'STUDENT' && session?.user?.role !== undefined;
+    console.log({ isAdmin });
 
     return (
         <nav className="fixed top-0 w-full z-50 bg-black/20 backdrop-blur-md border-b border-white/10">
@@ -41,11 +47,24 @@ export function Nav() {
                     <Link href="/news" className="text-white/80 hover:text-white transition-colors">
                         Noticias
                     </Link>
-                    <Link href={'/auth/login'}>
-                        <Button className="bg-gradient-to-r from-red-500 to-yellow-500 hover:from-red-600 hover:to-yellow-600">
-                            Comenzar Ahora
-                        </Button>
-                    </Link>
+                    {
+                        isAuthenticated ? (
+                            <form
+                                action={async () => {
+                                    await logout();
+                                }}
+                                className='flex w-full'
+                            >
+                                <Button className="w-full bg-gradient-to-r from-red-500 to-yellow-500 hover:from-red-600 hover:to-yellow-600">
+                                    Cerrar Sesión
+                                </Button>
+                            </form>
+                        ) : (
+                            <Button className="w-full bg-gradient-to-r from-red-500 to-yellow-500 hover:from-red-600 hover:to-yellow-600">
+                                Comenzar Ahora
+                            </Button>
+                        )
+                    }
                 </div>
 
                 {/* Mobile Navigation */}
@@ -62,21 +81,33 @@ export function Nav() {
                     className="md:hidden bg-black/90 backdrop-blur-md border-t border-white/10"
                 >
                     <div className="container mx-auto px-4 py-4 space-y-4">
-                        <Link href="#features" className="block text-white/80 hover:text-white transition-colors">
-                            Características
-                        </Link>
-                        <Link href="#testimonials" className="block text-white/80 hover:text-white transition-colors">
-                            Testimonios
+                        <Link href="/profile" className="block text-white/80 hover:text-white transition-colors">
+                            Perfil
                         </Link>
                         <Link href="/calendar" className="block text-white/80 hover:text-white transition-colors">
                             Calendario
                         </Link>
-                        <Link href="/contact" className="block text-white/80 hover:text-white transition-colors">
-                            Contacto
+                        <Link href="/news" className="block text-white/80 hover:text-white transition-colors">
+                            Noticias
                         </Link>
-                        <Button className="w-full bg-gradient-to-r from-red-500 to-yellow-500 hover:from-red-600 hover:to-yellow-600">
-                            Comenzar Ahora
-                        </Button>
+                        {
+                            isAuthenticated ? (
+                                <form
+                                    action={async () => {
+                                        await logout();
+                                    }}
+                                    className='flex w-full'
+                                >
+                                    <Button className="w-full bg-gradient-to-r from-red-500 to-yellow-500 hover:from-red-600 hover:to-yellow-600">
+                                        Cerrar Sesión
+                                    </Button>
+                                </form>
+                            ) : (
+                                <Button className="w-full bg-gradient-to-r from-red-500 to-yellow-500 hover:from-red-600 hover:to-yellow-600">
+                                    Comenzar Ahora
+                                </Button>
+                            )
+                        }
                     </div>
                 </motion.div>
             )}
