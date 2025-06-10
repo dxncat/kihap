@@ -12,12 +12,7 @@ export async function getSessionsByDojoId(dojoId: string) {
                 startTime: "desc",
             },
             include: {
-                Rank: {
-                    select: {
-                        name: true,
-                        description: true,
-                    },
-                }
+                Rank: true
             }
         });
 
