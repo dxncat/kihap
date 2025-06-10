@@ -7,6 +7,7 @@ import { Button } from "../ui/button"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "../ui/card"
 import { Sessions } from "@/interfaces/types"
 import { Badge } from "../ui/badge"
+import Link from "next/link"
 import { formatDate, getBeltColor } from "@/utils"
 
 interface Props {
@@ -30,8 +31,8 @@ export function UpcomingSessions({ session }: Props) {
         >
             <Card className="bg-white/5 backdrop-blur-md border-white/10">
                 <CardHeader>
-                    <CardTitle className="text-white">Próximas Sesiones</CardTitle>
-                    <CardDescription className="text-white/70">Sesiones programadas para los próximos días</CardDescription>
+                    <CardTitle className="text-white">Sesiones Para Hoy</CardTitle>
+                    <CardDescription className="text-white/70">Sesiones programadas para hoy</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -65,9 +66,11 @@ export function UpcomingSessions({ session }: Props) {
                                         </div>
                                     </div>
 
-                                    <Button className="w-full mt-4 bg-gradient-to-r from-red-500 to-yellow-500 hover:from-red-600 hover:to-yellow-600">
-                                        Ver Detalles
-                                    </Button>
+                                    <Link href={`/sessions/${session.id}`}>
+                                        <Button className="w-full mt-4 bg-gradient-to-r from-red-500 to-yellow-500 hover:from-red-600 hover:to-yellow-600">
+                                            Marcar Asistencia
+                                        </Button>
+                                    </Link>
                                 </CardContent>
                             </Card>
                         ))}
@@ -76,7 +79,7 @@ export function UpcomingSessions({ session }: Props) {
                     {session.length === 0 && (
                         <div className="text-center py-8">
                             <CalendarIcon className="w-12 h-12 text-white/30 mx-auto mb-4" />
-                            <p className="text-white/50">No hay sesiones programadas</p>
+                            <p className="text-white/50">No hay sesiones programadas para hoy</p>
                         </div>
                     )}
                 </CardContent>

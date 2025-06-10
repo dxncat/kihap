@@ -4,15 +4,17 @@ import prisma from "@/lib/prisma";
 
 interface Props {
     dojoId: string;
-    rankId?: number;
 }
 
-export async function getSessionsByDojoId({ dojoId, rankId }: Props) {
+export async function getSessionsForMaster({ dojoId }: Props) {
     try {
+        const today = new Date();
         const sessions = await prisma.session.findMany({
             where: {
                 dojoId: dojoId,
-                ...(rankId !== undefined && { rankId }),
+                startTime: {
+                    gte: today, // Solo sesiones futuras o de hoy
+                },
             },
             orderBy: {
                 startTime: "desc",

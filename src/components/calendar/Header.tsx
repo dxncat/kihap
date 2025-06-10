@@ -32,76 +32,12 @@ export function CalendarHeader({ isMaster }: { isMaster: boolean }) {
                         </Button>
                     </Link>
                     {isMaster && (
-                        <Dialog>
-                            <DialogTrigger asChild>
-                                <Button className="bg-gradient-to-r from-red-500 to-yellow-500 hover:from-red-600 hover:to-yellow-600 w-full sm:w-auto">
-                                    <Plus className="w-4 h-4 mr-2" />
-                                    Nueva Sesión
-                                </Button>
-                            </DialogTrigger>
-                            <DialogContent className="bg-slate-800 border-white/20 text-white max-w-2xl">
-                                <DialogHeader>
-                                    <DialogTitle>Programar Nueva Sesión</DialogTitle>
-                                    <DialogDescription className="text-white/70">
-                                        Crea una nueva sesión de entrenamiento para tus estudiantes
-                                    </DialogDescription>
-                                </DialogHeader>
-                                <div className="space-y-4">
-                                    <div>
-                                        <Label htmlFor="title">Título de la Sesión</Label>
-                                        <Input
-                                            id="title"
-                                            placeholder="Ej: Técnicas Básicas de Patadas"
-                                            className="bg-white/10 border-white/20 text-white"
-                                        />
-                                    </div>
-                                    <div>
-                                        <Label htmlFor="description">Descripción</Label>
-                                        <Textarea
-                                            id="description"
-                                            placeholder="Describe el contenido de la sesión..."
-                                            className="bg-white/10 border-white/20 text-white"
-                                        />
-                                    </div>
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div>
-                                            <Label htmlFor="startTime">Hora de Inicio</Label>
-                                            <Input
-                                                id="startTime"
-                                                type="datetime-local"
-                                                className="bg-white/10 border-white/20 text-white"
-                                            />
-                                        </div>
-                                        <div>
-                                            <Label htmlFor="endTime">Hora de Fin</Label>
-                                            <Input
-                                                id="endTime"
-                                                type="datetime-local"
-                                                className="bg-white/10 border-white/20 text-white"
-                                            />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <Label htmlFor="rank">Rango Objetivo</Label>
-                                        <Select>
-                                            <SelectTrigger className="bg-white/10 border-white/20 text-white">
-                                                <SelectValue placeholder="Selecciona el rango" />
-                                            </SelectTrigger>
-                                            <SelectContent className="bg-slate-800 border-white/20">
-                                                <SelectItem value="1">10º Kup (Cinturón Blanco)</SelectItem>
-                                                <SelectItem value="2">9º Kup (Cinturón Blanco con Punta Amarilla)</SelectItem>
-                                                <SelectItem value="3">8º Kup (Cinturón Amarillo)</SelectItem>
-                                                <SelectItem value="4">7º Kup (Cinturón Amarillo con Punta Verde)</SelectItem>
-                                                <SelectItem value="5">6º Kup (Cinturón Verde)</SelectItem>
-                                            </SelectContent>
-                                        </Select>
-                                    </div>
-                                    <Button className="w-full bg-gradient-to-r from-red-500 to-yellow-500 hover:from-red-600 hover:to-yellow-600">
-                                        Crear Sesión
-                                    </Button>
-                                </div>
-                            </DialogContent>
-                        </Dialog>
+                        <Link href="/calendar/create">
+                            <Button className="bg-gradient-to-r from-red-500 to-yellow-500 hover:from-red-600 hover:to-yellow-600 w-full sm:w-auto">
+                                <Plus className="w-4 h-4 mr-2" />
+                                Nueva Sesión
+                            </Button>
+                        </Link>
                     )}
                 </div>
             </div>
