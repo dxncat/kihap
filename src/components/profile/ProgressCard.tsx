@@ -55,11 +55,11 @@ export function ProgressCard({ user, nextRank }: Props) {
                             </span>
                         </div>
                         <div className="flex items-center justify-between">
-                            <Badge className={`${getBeltColor(user.rank?.name || "")}`}>
+                            <Badge className={`${getBeltColor(user.rank?.name || "")} whitespace-normal break-words`}>
                                 {user.rank?.name}
                             </Badge>
                             <div className="flex-1 mx-4 border-t border-dashed border-white/30"></div>
-                            <Badge className={`${getBeltColor(nextRank?.name || "")}`}>
+                            <Badge className={`${getBeltColor(nextRank?.name || "")} whitespace-normal break-words`}>
                                 {nextRank?.name || "Próximo Rango"}
                             </Badge>
                         </div>

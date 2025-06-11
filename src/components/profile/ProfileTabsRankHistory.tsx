@@ -28,7 +28,7 @@ export function ProfileTabsRankHistory({ user, rankHistory }: Props) {
                             <div className="w-4 h-4 rounded-full bg-green-500 mt-2 flex-shrink-0"></div>
                             <div className="flex-1">
                                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-                                    <Badge className={`${getBeltColor(user.rank?.name || "")} mb-2 sm:mb-0`}>
+                                    <Badge className={`${getBeltColor(user.rank?.name || "")} mb-2 sm:mb-0 whitespace-normal break-words`}>
                                         {user.rank?.name} (Actual)
                                     </Badge>
                                     <span className="text-white/70 text-sm">En progreso</span>
@@ -47,7 +47,7 @@ export function ProfileTabsRankHistory({ user, rankHistory }: Props) {
                                 <div className="w-4 h-4 rounded-full bg-blue-500 mt-2 flex-shrink-0"></div>
                                 <div className="flex-1">
                                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2">
-                                        <Badge className={`${getBeltColor(rank.Rank.name)} mb-2 sm:mb-0`}>
+                                        <Badge className={`${getBeltColor(rank.Rank.name)} mb-2 sm:mb-0 whitespace-normal break-words`}>
                                             {rank.Rank.name} (Completado)
                                         </Badge>
                                         <span className="text-white/70 text-sm">

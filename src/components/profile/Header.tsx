@@ -69,7 +69,7 @@ export function Header({ user, rankHistory }: Props) {
                             </>
                         ) : (
                             <>
-                                <Badge className={`${getBeltColor(user.rank?.name ?? "")}text-sm px-3 py-1`}>
+                                <Badge className={`${getBeltColor(user.rank?.name ?? "")}text-sm px-3 py-1 whitespace-normal break-words`}>
                                     {user.rank?.name}
                                 </Badge>
                                 <Badge variant="outline" className="border-white/30 text-white">

@@ -18,10 +18,14 @@ model Attendance {
   id        String  @id @default(dbgenerated("gen_random_uuid()"))
   studentId String
   sessionId String
-  attended  Boolean @default(false)
-  hours     Float
-  Session   Session @relation(fields: [sessionId], references: [id])
-  Student   Student @relation(fields: [studentId], references: [id])
+  attended  Boolean @default(true)
+  hours     Float?
+  Session   Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  Student   Student @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@unique([studentId, sessionId])
+  @@index([studentId])
+  @@index([sessionId])
 }
 
 model Dojo {

@@ -46,7 +46,7 @@ export function StudentHeader({ user, rankHistory }: Props) {
                     <p className="text-white/70 text-lg mb-4">{user.User?.email}</p>
 
                     <div className="flex flex-wrap gap-4 mb-4">
-                        <Badge className={`${getBeltColor(user.Rank?.name ?? "")}text-sm px-3 py-1`}>
+                        <Badge className={`${getBeltColor(user.Rank?.name ?? "")}text-sm px-3 py-1 whitespace-normal break-words`}>
                             {user.Rank?.name}
                         </Badge>
                         <Badge variant="outline" className="border-white/30 text-white">

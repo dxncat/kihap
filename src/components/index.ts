@@ -1,3 +1,6 @@
+export * from './attendance/attendance-button';
+export * from './attendance/bulk-attendance-button';
+export * from './attendance/search-filter';
 export * from './calendar/Controls';
 export * from './calendar/Grid';
 export * from './calendar/Header';

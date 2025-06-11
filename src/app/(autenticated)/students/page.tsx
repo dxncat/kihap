@@ -51,7 +51,7 @@ export default async function StudentsPage() {
 
     return (
         <div>
-            <div className="min-h-screen bg-gradient-to-br from-slate-900 via-red-900 to-slate-900">
+            <div className="min-h-screen">
                 <div className="container mx-auto px-4 py-8">
                     {/* Header */}
                     <div className="mb-8">
@@ -143,7 +143,7 @@ export default async function StudentsPage() {
                                                     <Badge className="bg-green-500">Activo</Badge>
                                                 </div>
 
-                                                <Badge className={`${getBeltColor(student.Rank.name)} mb-3 text-xs`}>{student.Rank.name}</Badge>
+                                                <Badge className={`${getBeltColor(student.Rank.name)} mb-3 text-xs whitespace-normal break-words`}>{student.Rank.name}</Badge>
 
                                                 <div className="space-y-3">
                                                     <div className="text-white/70 text-sm">
@@ -156,7 +156,7 @@ export default async function StudentsPage() {
                                                         <span className="font-medium">Horas actuales:</span> {student.currentHours}
                                                     </div>
                                                     <div className="text-white/70 text-sm">
-                                                        <span className="font-medium">Horas requeridas:</span> {student.Rank.hoursRequired}
+                                                        <span className="font-medium">Horas requeridas:</span> {student.nextRank.hoursRequired}
                                                     </div>
                                                 </div>
 

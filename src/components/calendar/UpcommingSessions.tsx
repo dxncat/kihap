@@ -66,7 +66,7 @@ export function UpcomingSessions({ session }: Props) {
                                         </div>
                                     </div>
 
-                                    <Link href={`/sessions/${session.id}`}>
+                                    <Link href={`/calendar/${session.id}`}>
                                         <Button className="w-full mt-4 bg-gradient-to-r from-red-500 to-yellow-500 hover:from-red-600 hover:to-yellow-600">
                                             Marcar Asistencia
                                         </Button>
