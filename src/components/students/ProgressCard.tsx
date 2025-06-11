@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui
 import { Target } from "lucide-react";
 import { Badge } from "../ui/badge";
 import { Progress } from "../ui/progress";
-import { Rank, Student, User } from "@/interfaces/types";
+import { Rank, Student } from "@/interfaces/types";
 import { getBeltColor } from "@/utils";
 
 interface Props {

@@ -87,7 +87,7 @@ export function SearchFilter({ currentSearch }: SearchFilterProps) {
                             "Buscando..."
                         ) : (
                             <>
-                                Buscando: "<span className="text-white/80">{searchTerm}</span>"
+                                Buscando: &quot;<span className="text-white/80">{searchTerm}</span>&quot;
                             </>
                         )}
                     </div>

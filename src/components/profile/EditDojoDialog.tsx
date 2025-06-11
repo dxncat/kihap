@@ -19,7 +19,7 @@ import {
 import { Card, CardContent } from "@/components/ui/card"
 import { PencilLine, Save, X, Shield, MapPin, FileText, Calendar } from "lucide-react"
 import { motion } from "framer-motion"
-import type { Dojo, User } from "@/interfaces/types"
+import type { Dojo } from "@/interfaces/types"
 
 interface Props {
     dojo: Dojo

@@ -1,4 +1,4 @@
-import { getDojoById, getRankById, getRankHistory, getUserById, getStudentsById } from "@/actions"
+import { getRankById, getRankHistory, getStudentsById } from "@/actions"
 import { auth } from "@/auth.config"
 import { StudentDojoInformation, StudentHeader, StudentProfileTabs, StudentProgressCard } from "@/components"
 import { Metadata } from "next"

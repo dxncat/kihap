@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Rank, RankHistory, Student, User } from "@/interfaces/types"
+import { Rank, RankHistory, Student } from "@/interfaces/types"
 import { StudentStats } from "./Stats"
 import { StudentProfileTabsRankHistory } from "./ProfileTabsRankHistory"
 

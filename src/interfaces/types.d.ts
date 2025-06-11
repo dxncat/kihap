@@ -1,4 +1,3 @@
-import { create } from 'zustand';
 export interface Rank {
     id: number
     name: string

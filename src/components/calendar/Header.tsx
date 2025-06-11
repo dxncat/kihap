@@ -1,14 +1,8 @@
 "use client"
 
-import { Dialog, DialogTrigger, DialogContent, DialogTitle, DialogDescription } from "@radix-ui/react-dialog"
-import { Label } from "@radix-ui/react-label"
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@radix-ui/react-select"
 import { motion } from "framer-motion"
 import { Bell, Plus } from "lucide-react"
 import { Button } from "../ui/button"
-import { DialogHeader } from "../ui/dialog"
-import { Input } from "../ui/input"
-import { Textarea } from "../ui/textarea"
 import Link from "next/link"
 
 export function CalendarHeader({ isMaster }: { isMaster: boolean }) {

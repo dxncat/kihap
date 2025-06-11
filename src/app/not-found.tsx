@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
-import { Shield, Home, ArrowLeft, Search } from "lucide-react"
+import { Home, ArrowLeft, Search } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 import { titleFont } from "@/config/fonts"

@@ -1,6 +1,6 @@
 "use client"
 
-import type { Dojo, User } from "@/interfaces/types"
+import type { Dojo } from "@/interfaces/types"
 import { motion } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
 import { Calendar, Code, GraduationCap, MapPin, Shield } from "lucide-react"

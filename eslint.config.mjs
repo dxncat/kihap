@@ -10,6 +10,49 @@ const compat = new FlatCompat({
 });
 
 const eslintConfig = [
+  {
+    // Ignorar archivos y directorios (migrado desde .eslintignore)
+    ignores: [
+      // Generated Prisma files
+      "**/src/generated/prisma/**",
+
+      // Build outputs
+      "**/.next/**",
+      "**/out/**",
+      "**/build/**",
+      "**/dist/**",
+
+      // Dependencies
+      "**/node_modules/**",
+
+      // Environment variables
+      "**/.env",
+      "**/.env.local",
+      "**/.env.production",
+      "**/.env.staging",
+
+      // Logs
+      "**/npm-debug.log*",
+      "**/yarn-debug.log*",
+      "**/yarn-error.log*",
+
+      // Runtime data
+      "**/pids/**",
+      "**/*.pid",
+      "**/*.seed",
+      "**/*.pid.lock",
+
+      // Coverage directory
+      "**/coverage/**",
+      "**/.nyc_output/**",
+
+      // ESLint cache
+      "**/.eslintcache",
+
+      // Generated files
+      "**/src/generated/**"
+    ]
+  },
   ...compat.extends("next/core-web-vitals", "next/typescript"),
 ];
 

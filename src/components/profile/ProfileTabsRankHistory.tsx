@@ -2,7 +2,6 @@
 
 import { formatDate, getBeltColor } from "@/utils";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
-import { TabsContent } from "../ui/tabs";
 import { RankHistory, User } from "@/interfaces/types";
 import { Badge } from "../ui/badge";
 

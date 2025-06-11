@@ -15,8 +15,6 @@ import { EyeOff, Eye, Lock, Mail } from "lucide-react"
 
 export function LoginForm() {
     const router = useRouter()
-    const [isLoading, setIsLoading] = useState(false)
-    const [formError, setFormError] = useState("")
     const [state, dispatch] = useActionState(authenticate, undefined)
     const [showPassword, setShowPassword] = useState(false)
 
@@ -109,15 +107,13 @@ export function LoginForm() {
                             </Link>
                         </div>
                     </div>
-                    {formError && <div className="text-red-400 text-sm bg-red-400/10 p-2 rounded-md">{formError}</div>}
                 </CardContent>
                 <CardFooter>
                     <Button
                         type="submit"
                         className="w-full bg-gradient-to-r from-red-500 to-yellow-500 hover:from-red-600 hover:to-yellow-600 mt-8"
-                        disabled={isLoading}
                     >
-                        {isLoading ? "Iniciando sesión..." : "Iniciar Sesión"}
+                        Iniciar Sesión
                     </Button>
                 </CardFooter>
             </form>

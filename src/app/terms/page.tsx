@@ -207,7 +207,7 @@ export default function TermsPage() {
                         </CardHeader>
                         <CardContent>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                {sections.map((section, index) => (
+                                {sections.map((section) => (
                                     <Link
                                         key={section.id}
                                         href={`#${section.id}`}

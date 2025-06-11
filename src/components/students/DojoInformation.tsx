@@ -1,6 +1,6 @@
 "use client"
 
-import { Student, User } from "@/interfaces/types"
+import { Student } from "@/interfaces/types"
 import { motion } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
 import { Calendar, Code, MapPin, Shield } from "lucide-react"

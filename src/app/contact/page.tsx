@@ -319,7 +319,7 @@ export default function ContactPage() {
                                     <div>
                                         <h3 className="text-white font-semibold mb-2">¿Cómo me registro en la plataforma?</h3>
                                         <p className="text-white/70 text-sm">
-                                            Puedes registrarte haciendo clic en "Comenzar Gratis" en nuestra página principal. El proceso es
+                                            Puedes registrarte haciendo clic en &quot;Comenzar Gratis&quot; en nuestra página principal. El proceso es
                                             simple y solo toma unos minutos.
                                         </p>
                                     </div>
