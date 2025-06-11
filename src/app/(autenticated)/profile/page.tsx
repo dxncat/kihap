@@ -26,7 +26,6 @@ export default async function Profile() {
     }
 
     const students = await getStudentsByDojo(session.user.dojo?.id || "")
-    console.log({ students })
 
     return (
         <div>
