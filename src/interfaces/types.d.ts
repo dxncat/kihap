@@ -14,12 +14,23 @@ export interface StudentInfo {
     rankId: number
     currentHours: number
 }
+export interface Student {
+    id: string
+    userId: string
+    dojoId: string
+    rankId: number
+    currentHours: number
+    User?: User | null
+    Rank?: Rank | null
+    nextRank?: Rank | null
+    Dojo?: Dojo | null
+}
 
 export interface Dojo {
     id: string
     code: string
     name: string
-    description: string
+    description?: string | null
     createdAt: Date
     masterId: string
     master?: User | null

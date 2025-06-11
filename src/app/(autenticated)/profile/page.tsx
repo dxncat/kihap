@@ -1,4 +1,4 @@
-import { getRankById, getRankHistory, getSessionsByDojoId } from "@/actions"
+import { getRankById, getRankHistory, getSessionsByDojoId, getStudentsByDojo } from "@/actions"
 import { auth } from "@/auth.config"
 import { DojoInformation, Header, ProfileTabs, ProgressCard } from "@/components"
 import { Rank, RankHistory } from "@/interfaces/types"
@@ -24,6 +24,9 @@ export default async function Profile() {
         rankHistory = await getRankHistory(session.user.student_info?.id || "")
         nextRank = await getRankById({ rankId: (session.user.rank?.id !== undefined ? session.user.rank.id + 1 : 0) })
     }
+
+    const students = await getStudentsByDojo(session.user.dojo?.id || "")
+    console.log({ students })
 
     return (
         <div>

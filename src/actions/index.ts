@@ -7,3 +7,6 @@ export * from './ranks/getRankById';
 export * from './ranks/getRanks';
 export * from './sessions/getSessionForMaster';
 export * from './sessions/getSessionsByDojoId';
+export * from './sessions/newSession';
+export * from './students/getStudentsByDojo';
+export * from './students/getStudentsById';

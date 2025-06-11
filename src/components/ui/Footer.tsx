@@ -7,7 +7,7 @@ export function Footer() {
         <footer className="bg-black text-white py-16">
             <div className="container mx-auto px-4">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
-                    <div>
+                    <div className="col-span-1 md:col-span-2">
                         <Link href="/" className="flex items-center space-x-2 mb-4">
                             <div className="w-8 h-8 flex items-center justify-center">
                                 <Image
@@ -23,6 +23,16 @@ export function Footer() {
                             </div>
                         </Link>
                         <p className="text-white/70 mb-4">La plataforma líder para academias de taekwondo en todo el mundo.</p>
+                        <p className="text-white/70 mb-4">
+                            Cl 52 N° 13 65
+                            <br />
+                            Regional Distrito Capital, Bogota D.C.
+                            <br />
+                            Colombia
+                            <br />
+                            <br />
+                            <a href="mailto:contact@kihap.com">contact@kihap.com</a>
+                        </p>
                         <div className="flex space-x-4">{/* Social media icons would go here */}</div>
                     </div>
 
@@ -30,7 +40,7 @@ export function Footer() {
                         <h3 className="font-semibold mb-4">Producto</h3>
                         <ul className="space-y-2 text-white/70">
                             <li>
-                                <Link href="#features" className="hover:text-white transition-colors">
+                                <Link href="/#features" className="hover:text-white transition-colors">
                                     Características
                                 </Link>
                             </li>
@@ -68,32 +78,6 @@ export function Footer() {
                             <li>
                                 <Link href="/privacy" className="hover:text-white transition-colors">
                                     Privacidad
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h3 className="font-semibold mb-4">Soporte</h3>
-                        <ul className="space-y-2 text-white/70">
-                            <li>
-                                <Link href="/help" className="hover:text-white transition-colors">
-                                    Centro de Ayuda
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/docs" className="hover:text-white transition-colors">
-                                    Documentación
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/api" className="hover:text-white transition-colors">
-                                    API
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/status" className="hover:text-white transition-colors">
-                                    Estado
                                 </Link>
                             </li>
                         </ul>
