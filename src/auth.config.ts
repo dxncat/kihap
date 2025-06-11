@@ -22,6 +22,17 @@ interface DojoInfo {
     Master?: Master | null;
 }
 
+// Extended user type for session
+interface ExtendedUser {
+    id: string;
+    email: string;
+    name?: string;
+    role: string;
+    dojo?: DojoInfo | null;
+    student_info?: StudentInfo | null;
+    rank?: unknown;
+}
+
 export const authConfig: NextAuthConfig = {
     pages: {
         signIn: "/auth/login",
@@ -35,7 +46,7 @@ export const authConfig: NextAuthConfig = {
             return token
         },
         session({ session, token }) {
-            session.user = token.data as any
+            session.user = token.data as ExtendedUser
             return session
         }
     },
@@ -69,8 +80,8 @@ export const authConfig: NextAuthConfig = {
 
                         const dojo = await prisma.dojo.findFirst({
                             where: { masterId: master_id?.id }
-                        });
-                        (user as any).dojo = dojo;
+                        }) as DojoInfo | null;
+                        (user as ExtendedUser).dojo = dojo;
                         break;
                     }
                     case "STUDENT": {
@@ -92,19 +103,19 @@ export const authConfig: NextAuthConfig = {
                             });
                             if (rank) {
                                 // Ensure proper typing when assigning to user
-                                (user as any).rank = rank;
+                                (user as ExtendedUser).rank = rank;
                             }
 
                             // Ensure proper typing when assigning to user
-                            (user as any).student_info = student_info;
-                            (user as any).dojo = dojo;
+                            (user as ExtendedUser).student_info = student_info;
+                            (user as ExtendedUser).dojo = dojo;
                         }
                         break;
                     }
                 }
 
                 //regresar el usuario sin el password
-                const { password: _, ...rest } = user
+                const { password, ...rest } = user
 
                 return rest
             }

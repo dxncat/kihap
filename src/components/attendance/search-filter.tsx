@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useTransition, useEffect, useCallback } from "react"
+import { useState, useTransition, useEffect } from "react"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { Search } from "lucide-react"
@@ -16,38 +16,31 @@ export function SearchFilter({ currentSearch }: SearchFilterProps) {
     const router = useRouter()
     const searchParams = useSearchParams()
 
-    // Función debounced para actualizar la URL
-    const debouncedSearch = useCallback(
-        debounce((value: string) => {
+    // Función para manejar la búsqueda con debounce
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
             startTransition(() => {
                 const params = new URLSearchParams(searchParams)
-                if (value.trim()) {
-                    params.set("search", value.trim())
+                if (searchTerm.trim()) {
+                    params.set("search", searchTerm.trim())
                 } else {
                     params.delete("search")
                 }
                 router.replace(`?${params.toString()}`)
             })
-        }, 500), // 500ms de delay
-        [searchParams, router, startTransition],
-    )
+        }, 500)
 
-    // Efecto para manejar el debounce
-    useEffect(() => {
-        debouncedSearch(searchTerm)
-
-        // Cleanup function para cancelar el debounce si el componente se desmonta
         return () => {
-            debouncedSearch.cancel()
+            clearTimeout(timeoutId)
         }
-    }, [searchTerm, debouncedSearch])
+    }, [searchTerm, searchParams, router, startTransition])
 
     // Sincronizar con el searchParam cuando cambia externamente
     useEffect(() => {
         if (currentSearch !== searchTerm) {
             setSearchTerm(currentSearch)
         }
-    }, [currentSearch])
+    }, [currentSearch, searchTerm])
 
     const handleInputChange = (value: string) => {
         setSearchTerm(value)
@@ -95,28 +88,4 @@ export function SearchFilter({ currentSearch }: SearchFilterProps) {
             </CardContent>
         </Card>
     )
-}
-
-// Función debounce personalizada
-function debounce<T extends (...args: any[]) => any>(func: T, delay: number): T & { cancel: () => void } {
-    let timeoutId: NodeJS.Timeout | null = null
-
-    const debouncedFunction = ((...args: Parameters<T>) => {
-        if (timeoutId) {
-            clearTimeout(timeoutId)
-        }
-
-        timeoutId = setTimeout(() => {
-            func(...args)
-        }, delay)
-    }) as T & { cancel: () => void }
-
-    debouncedFunction.cancel = () => {
-        if (timeoutId) {
-            clearTimeout(timeoutId)
-            timeoutId = null
-        }
-    }
-
-    return debouncedFunction
 }

@@ -34,7 +34,7 @@ export const login = async (email: string, password: string) => {
             ok: true,
             message: "Usuario autenticado correctamente"
         })
-    } catch (error) {
+    } catch {
         return {
             ok: false,
             message: "Error al autenticar el usuario"

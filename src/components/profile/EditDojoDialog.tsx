@@ -83,9 +83,10 @@ export function EditDojoDialog({ dojo, onSave, students }: Props) {
                 setIsOpen(false)
                 setFormSuccess("")
             }, 2000)
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error("Error al actualizar el dojo:", error)
-            setFormError(error.message || "Error al actualizar la información. Inténtalo de nuevo.")
+            const errorMessage = error instanceof Error ? error.message : "Error al actualizar la información. Inténtalo de nuevo."
+            setFormError(errorMessage)
         } finally {
             setIsLoading(false)
         }
