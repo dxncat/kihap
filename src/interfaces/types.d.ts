@@ -58,11 +58,12 @@ export interface News {
 }
 
 export interface Sessions {
-    id: string
+    id?: string
     title: string
     description?: string | null
     startTime: Date
     endTime: Date
     rankId: number
+    dojoId: string
     Rank?: Rank | null
 }

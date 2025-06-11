@@ -8,8 +8,6 @@ import { auth } from "@/auth.config"
 export default async function AuthPage() {
     const session = await auth()
 
-    console.log(!session)
-
     if (session) {
         redirect("/profile")
     }

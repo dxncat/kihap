@@ -5,10 +5,19 @@ import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { getRanks } from "@/actions"
 import { ClassForm } from "./components/form"
+import { redirect } from "next/navigation"
+import { auth } from "@/auth.config"
 
 export default async function NewClassPage() {
 
     const ranks = await getRanks()
+    const session = await auth()
+
+    if (!session) {
+        redirect("/auth/login")
+    }
+
+    const dojoId = session.user.dojo?.id
 
     return (
         <div>
@@ -36,7 +45,7 @@ export default async function NewClassPage() {
                     </div>
 
                     {/* Form */}
-                    <ClassForm ranks={ranks} />
+                    <ClassForm ranks={ranks} dojoId={dojoId || ""} />
                 </div>
             </div>
         </div>

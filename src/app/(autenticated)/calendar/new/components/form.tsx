@@ -1,13 +1,9 @@
 "use client"
 
+import { newSession } from "@/actions/sessions/newSession"
 import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Input, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Textarea } from "@/components"
-import { Calendar } from "@/components/ui/calendar"
-import { cn } from "@/lib/utils"
-import { Popover, PopoverTrigger, PopoverContent } from "@radix-ui/react-popover"
-import { es } from "date-fns/locale"
 import { motion } from "framer-motion"
 import { CalendarIcon, Clock, MapPin, Users } from "lucide-react"
-import { format } from "date-fns"
 import { useState } from "react"
 
 interface Props {
@@ -15,9 +11,10 @@ interface Props {
         id: number;
         name: string;
     }[]
+    dojoId: string;
 }
 
-export function ClassForm({ ranks }: Props) {
+export function ClassForm({ ranks, dojoId }: Props) {
 
     const [isLoading, setIsLoading] = useState(false)
     const [formError, setFormError] = useState("")
@@ -26,6 +23,7 @@ export function ClassForm({ ranks }: Props) {
     const [formData, setFormData] = useState({
         title: "",
         description: "",
+        date: "",
         startTime: "",
         endTime: "",
         rankId: "",
@@ -38,6 +36,11 @@ export function ClassForm({ ranks }: Props) {
         }))
     }
 
+    // Función para combinar fecha y hora en un objeto Date
+    const createDateTime = (date: string, time: string): Date => {
+        return new Date(`${date}T${time}`)
+    }
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setIsLoading(true)
@@ -46,18 +49,37 @@ export function ClassForm({ ranks }: Props) {
 
         try {
             // Validaciones básicas
-            if (!formData.title || !formData.startTime || !formData.endTime || !formData.rankId) {
+            if (!formData.title || !formData.date || !formData.startTime || !formData.endTime || !formData.rankId) {
                 throw new Error("Por favor completa todos los campos obligatorios")
             }
 
+            // Crear objetos Date combinando fecha y hora
+            const startDateTime = createDateTime(formData.date, formData.startTime)
+            const endDateTime = createDateTime(formData.date, formData.endTime)
+
             // Validar que la hora de fin sea posterior a la de inicio
-            if (new Date(formData.startTime) >= new Date(formData.endTime)) {
+            if (startDateTime >= endDateTime) {
                 throw new Error("La hora de fin debe ser posterior a la hora de inicio")
             }
 
+            // Validar que la fecha no sea en el pasado
+            const now = new Date()
+            if (startDateTime < now) {
+                throw new Error("No puedes programar una clase en el pasado")
+            }
+
+            // Datos formateados para enviar al servidor
+            const classData = {
+                title: formData.title,
+                description: formData.description,
+                startTime: startDateTime,
+                endTime: endDateTime,
+                rankId: Number.parseInt(formData.rankId),
+                dojoId: dojoId,
+            }
+
             // Simulación de envío al servidor
-            console.log("Datos de la clase:", formData)
-            await new Promise((resolve) => setTimeout(resolve, 1000))
+            await newSession({ session: classData })
 
             // Éxito
             setFormSuccess("¡Clase programada correctamente!")
@@ -66,16 +88,24 @@ export function ClassForm({ ranks }: Props) {
             setFormData({
                 title: "",
                 description: "",
+                date: "",
                 startTime: "",
                 endTime: "",
                 rankId: "",
             })
+            window.location.replace('/calendar')
         } catch (error: any) {
             console.error("Error al programar la clase:", error)
             setFormError(error.message || "Error al programar la clase. Inténtalo de nuevo.")
         } finally {
             setIsLoading(false)
         }
+    }
+
+    // Obtener la fecha mínima (hoy)
+    const getMinDate = () => {
+        const today = new Date()
+        return today.toISOString().split("T")[0]
     }
 
     return (
@@ -121,32 +151,56 @@ export function ClassForm({ ranks }: Props) {
                             />
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="space-y-2">
-                                <Label htmlFor="startTime" className="text-white">
-                                    Fecha y Hora de Inicio *
-                                </Label>
+                        <div className="space-y-2">
+                            <Label htmlFor="date" className="text-white">
+                                Fecha *
+                            </Label>
+                            <div className="relative">
+                                <CalendarIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50 w-4 h-4" />
                                 <Input
-                                    id="startTime"
-                                    type="datetime-local"
-                                    value={formData.startTime}
-                                    onChange={(e) => handleInputChange("startTime", e.target.value)}
-                                    className="bg-white/10 border-white/20 text-white"
+                                    id="date"
+                                    type="date"
+                                    value={formData.date}
+                                    min={getMinDate()}
+                                    onChange={(e) => handleInputChange("date", e.target.value)}
+                                    className="bg-white/10 border-white/20 text-white pl-10"
                                     required
                                 />
                             </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div className="space-y-2">
+                                <Label htmlFor="startTime" className="text-white">
+                                    Hora de Inicio *
+                                </Label>
+                                <div className="relative">
+                                    <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50 w-4 h-4" />
+                                    <Input
+                                        id="startTime"
+                                        type="time"
+                                        value={formData.startTime}
+                                        onChange={(e) => handleInputChange("startTime", e.target.value)}
+                                        className="bg-white/10 border-white/20 text-white pl-10"
+                                        required
+                                    />
+                                </div>
+                            </div>
                             <div className="space-y-2">
                                 <Label htmlFor="endTime" className="text-white">
-                                    Fecha y Hora de Fin *
+                                    Hora de Fin *
                                 </Label>
-                                <Input
-                                    id="endTime"
-                                    type="datetime-local"
-                                    value={formData.endTime}
-                                    onChange={(e) => handleInputChange("endTime", e.target.value)}
-                                    className="bg-white/10 border-white/20 text-white"
-                                    required
-                                />
+                                <div className="relative">
+                                    <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50 w-4 h-4" />
+                                    <Input
+                                        id="endTime"
+                                        type="time"
+                                        value={formData.endTime}
+                                        onChange={(e) => handleInputChange("endTime", e.target.value)}
+                                        className="bg-white/10 border-white/20 text-white pl-10"
+                                        required
+                                    />
+                                </div>
                             </div>
                         </div>
 
@@ -202,6 +256,7 @@ export function ClassForm({ ranks }: Props) {
                                     setFormData({
                                         title: "",
                                         description: "",
+                                        date: "",
                                         startTime: "",
                                         endTime: "",
                                         rankId: "",

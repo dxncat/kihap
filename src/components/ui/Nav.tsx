@@ -16,7 +16,6 @@ export function Nav() {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const isAuthenticated = !!session?.user
     const isAdmin = session?.user?.role !== 'STUDENT' && session?.user?.role !== undefined;
-    console.log({ isAdmin });
 
     return (
         <nav className="fixed top-0 w-full z-50 bg-black/20 backdrop-blur-md border-b border-white/10">
