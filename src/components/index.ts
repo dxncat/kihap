@@ -22,6 +22,7 @@ export * from './provider/Provider';
 export * from './students/DojoInformation';
 export * from './students/Header';
 export * from './students/ProfileTabs';
+export * from './students/PromotableButton';
 export * from './students/ProfileTabsRankHistory';
 export * from './students/ProgressCard';
 export * from './students/Stats';

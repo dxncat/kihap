@@ -16,12 +16,14 @@ export default async function NewsPage() {
         redirect("/auth/login")
     }
 
+    const isMaster = session.user.role === "MASTER" || session.user.role === "SUPER_ADMIN"
+
     const news = await getNewsByDojoId(session.user.dojo?.id || "")
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-900 via-red-900 to-slate-900">
             <div className="container mx-auto px-4 py-8">
-                <NewsHeader />
+                <NewsHeader isMaster />
                 <NewsList news={news} />
             </div>
         </div>

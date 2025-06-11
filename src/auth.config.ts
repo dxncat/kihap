@@ -3,6 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import { z } from "zod";
 import bcryptjs from "bcryptjs";
 import prisma from "./lib/prisma";
+import { Master } from './generated/prisma/index';
 
 // Add type definitions
 interface StudentInfo {
@@ -18,6 +19,7 @@ interface DojoInfo {
     code: string;
     name: string;
     description?: string | null;
+    Master?: Master | null;
 }
 
 export const authConfig: NextAuthConfig = {
@@ -80,6 +82,9 @@ export const authConfig: NextAuthConfig = {
                         if (student_info) {
                             const dojo = await prisma.dojo.findFirst({
                                 where: { id: student_info.dojoId },
+                                include: {
+                                    Master: true
+                                }
                             }) as DojoInfo | null;
 
                             const rank = await prisma.rank.findUnique({

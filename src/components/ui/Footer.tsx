@@ -51,7 +51,7 @@ export function Footer() {
                             </li>
                             <li>
                                 <Link href="/profile" className="hover:text-white transition-colors">
-                                    Perfiles
+                                    Perfil
                                 </Link>
                             </li>
                         </ul>

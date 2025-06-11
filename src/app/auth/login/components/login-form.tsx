@@ -23,7 +23,7 @@ export function LoginForm() {
     useEffect(() => {
         if (state === "Success") {
             // router.replace("/")
-            router.push("/profile")
+            router.push("/news")
         }
     }, [state])
 

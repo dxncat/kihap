@@ -5,10 +5,11 @@ import { ArrowUp, Calendar, User, CheckCircle2, Trophy } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { Student } from "@/interfaces/types"
-import { getRankById, getStudentsByDojo } from "@/actions"
+import { getRankById, getStudentsByDojo, promoteRank } from "@/actions"
 import { redirect } from "next/navigation"
 import { auth } from "@/auth.config"
 import { formatDate, getBeltColor } from "@/utils"
+import { PromoteButton } from "@/components"
 
 function canPromote(student: Student): boolean {
     return (
@@ -191,15 +192,7 @@ export default async function StudentsPage() {
                                                         </Button>
                                                     </Link>
                                                     {isPromotable && student.nextRank && (
-                                                        <form action="/api/promote-student" method="POST" className="flex-1">
-                                                            <input type="hidden" name="studentId" value={student.id} />
-                                                            <input type="hidden" name="currentRankId" value={student.rankId} />
-                                                            <input type="hidden" name="nextRankId" value={student.nextRank.id} />
-                                                            <Button type="submit" className="w-full" size="sm">
-                                                                <ArrowUp className="w-4 h-4 mr-2" />
-                                                                Promover
-                                                            </Button>
-                                                        </form>
+                                                        <PromoteButton student={student} />
                                                     )}
                                                 </div>
 

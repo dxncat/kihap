@@ -9,10 +9,11 @@ import { getBeltColor } from "@/utils"
 
 interface Props {
     user: User,
-    rankHistory: RankHistory[]
+    rankHistory: RankHistory[],
+    students: number
 }
 
-export function Header({ user, rankHistory }: Props) {
+export function Header({ user, rankHistory, students }: Props) {
 
     const isMaster = user.role === "MASTER"
     const isStudent = user.role === "STUDENT"
@@ -69,7 +70,7 @@ export function Header({ user, rankHistory }: Props) {
                             </>
                         ) : (
                             <>
-                                <Badge className={`${getBeltColor(user.rank?.name ?? "")}text-sm px-3 py-1 whitespace-normal break-words`}>
+                                <Badge className={`${getBeltColor(user.rank?.name ?? "")} text-sm px-3 py-1 whitespace-normal break-words`}>
                                     {user.rank?.name}
                                 </Badge>
                                 <Badge variant="outline" className="border-white/30 text-white">
@@ -87,7 +88,7 @@ export function Header({ user, rankHistory }: Props) {
                     {isMaster ? (
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                             <div className="text-center">
-                                <div className="text-2xl font-bold text-white">15</div>
+                                <div className="text-2xl font-bold text-white">{students}</div>
                                 <div className="text-white/70 text-sm">Estudiantes</div>
                             </div>
                             <div className="text-center">
@@ -109,7 +110,7 @@ export function Header({ user, rankHistory }: Props) {
                                 <div className="text-2xl font-bold text-white">
                                     {user.student_info?.currentHours || 0}
                                 </div>
-                                <div className="text-white/70 text-sm">Horas Totales</div>
+                                <div className="text-white/70 text-sm">Horas Acumuladas</div>
                             </div>
                             <div className="text-center">
                                 <div className="text-2xl font-bold text-white">{user.rank?.level}</div>

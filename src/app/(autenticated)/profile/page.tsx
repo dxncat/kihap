@@ -1,4 +1,4 @@
-import { getRankById, getRankHistory, getSessionsByDojoId, getStudentsByDojo } from "@/actions"
+import { getDojoById, getMasterDojo, getRankById, getRankHistory, getSessionsByDojoId, getStudentsByDojo } from "@/actions"
 import { auth } from "@/auth.config"
 import { DojoInformation, Header, ProfileTabs, ProgressCard } from "@/components"
 import { Rank, RankHistory } from "@/interfaces/types"
@@ -25,18 +25,23 @@ export default async function Profile() {
         nextRank = await getRankById({ rankId: (session.user.rank?.id !== undefined ? session.user.rank.id + 1 : 0) })
     }
 
-    const students = await getStudentsByDojo(session.user.dojo?.id || "")
+    const students = await (await getStudentsByDojo(session.user.dojo?.id || "")).length
+
+    const isMaster = session.user.role === "MASTER" || session.user.role === "SUPER_ADMIN"
+    const dojo = await getDojoById(session.user.dojo?.id || "")
 
     return (
         <div>
             <div className="container mx-auto px-4 py-8">
-                <Header rankHistory={rankHistory} user={session.user} />
+                <Header rankHistory={rankHistory} user={session.user} students={students} />
                 {
                     session.user.role === "STUDENT" && (
                         <ProgressCard user={session.user} nextRank={nextRank} />
                     )
                 }
-                <DojoInformation user={session.user} />
+                {dojo && (
+                    <DojoInformation dojo={dojo} isMaster={isMaster} students={students} />
+                )}
                 {
                     session.user.role === "STUDENT" && (
                         <ProfileTabs user={session.user} rankHistory={rankHistory} />

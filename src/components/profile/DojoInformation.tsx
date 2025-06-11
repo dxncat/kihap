@@ -1,23 +1,31 @@
 "use client"
 
-import { User } from "@/interfaces/types"
+import type { Dojo, User } from "@/interfaces/types"
 import { motion } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card"
-import { Calendar, Code, MapPin, Shield } from "lucide-react"
+import { Calendar, Code, GraduationCap, MapPin, Shield } from "lucide-react"
+import { EditDojoDialog } from "./EditDojoDialog"
+import { updateDojoInfo } from "@/actions"
 
 interface Props {
-    user: User,
-    master?: User
+    dojo: Dojo
+    isMaster?: boolean
+    students: number
 }
 
-export function DojoInformation({ user }: Props) {
-
+export function DojoInformation({ dojo, isMaster, students }: Props) {
     const formatDate = (dateString: Date) => {
         return new Date(dateString).toLocaleDateString("es-ES", {
             year: "numeric",
             month: "long",
             day: "numeric",
         })
+    }
+
+    const handleSaveDojoInfo = async (dojoData: { name: string; description: string }) => {
+        console.log(dojo.id, dojoData)
+        await updateDojoInfo(dojo?.id || "", dojoData.name, dojoData.description)
+        window.location.reload()
     }
 
     return (
@@ -40,24 +48,30 @@ export function DojoInformation({ user }: Props) {
                             <div className="flex items-center text-white/80">
                                 <MapPin className="w-4 h-4 mr-2 text-red-400" />
                                 <span className="font-medium">Nombre:</span>
-                                <span className="ml-2">{user.dojo?.name}</span>
+                                <span className="ml-2">{dojo.name}</span>
                             </div>
                             <div className="flex items-center text-white/80">
                                 <Code className="w-4 h-4 mr-2 text-red-400" />
                                 <span className="font-medium">Código:</span>
-                                <span className="ml-2 font-mono text-sm bg-white/10 px-2 py-1 rounded">{user.dojo?.code}</span>
+                                <span className="ml-2 font-mono text-sm bg-white/10 px-2 py-1 rounded">{dojo.id}</span>
                             </div>
                             <div className="flex items-center text-white/80">
                                 <Calendar className="w-4 h-4 mr-2 text-red-400" />
                                 <span className="font-medium">Fundado:</span>
-                                <span className="ml-2">{user.dojo?.createdAt ? formatDate(user.dojo.createdAt) : "Fecha desconocida"}</span>
+                                <span className="ml-2">
+                                    {dojo.createdAt ? formatDate(dojo.createdAt) : "Fecha desconocida"}
+                                </span>
                             </div>
                         </div>
                         <div>
-                            <p className="text-white/70 text-sm">
-                                {user.dojo?.description ||
-                                    "Un dojo tradicional enfocado en la excelencia y disciplina del taekwondo."}
+                            <p className="text-white/70 text-sm mb-4">
+                                {dojo.description || "Un dojo tradicional enfocado en la excelencia y disciplina del taekwondo."}
                             </p>
+                            <div className="flex items-center text-white/80">
+                                <GraduationCap className="w-4 h-4 mr-2 text-red-400" />
+                                <p>Maestro: {dojo.master?.name || "Maestro no asignado"}</p>
+                            </div>
+                            {isMaster && <EditDojoDialog students={students} dojo={dojo} onSave={handleSaveDojoInfo} />}
                         </div>
                     </div>
                 </CardContent>
