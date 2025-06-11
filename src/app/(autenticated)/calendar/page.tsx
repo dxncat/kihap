@@ -1,7 +1,7 @@
 
 import { getSessionsByDojoId, getSessionsForMaster } from "@/actions"
 import { auth } from "@/auth.config"
-import { CalendarControls, CalendarGrid, CalendarHeader, UpcomingSessions } from "@/components"
+import { CalendarGrid, CalendarHeader, UpcomingSessions } from "@/components"
 import { redirect } from "next/navigation"
 
 export default async function CalendarPage() {

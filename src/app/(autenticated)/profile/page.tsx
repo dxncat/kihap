@@ -1,4 +1,4 @@
-import { getDojoById, getMasterDojo, getRankById, getRankHistory, getSessionsByDojoId, getStudentsByDojo } from "@/actions"
+import { getDojoById, getRankById, getRankHistory, getStudentsByDojo } from "@/actions"
 import { auth } from "@/auth.config"
 import { DojoInformation, Header, ProfileTabs, ProgressCard } from "@/components"
 import { Rank, RankHistory } from "@/interfaces/types"

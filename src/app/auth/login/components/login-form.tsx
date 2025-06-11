@@ -22,10 +22,9 @@ export function LoginForm() {
 
     useEffect(() => {
         if (state === "Success") {
-            // router.replace("/")
-            router.push("/news")
+            router.push("/calendar")
         }
-    }, [state])
+    }, [state, router])
 
     // Función para alternar visibilidad de contraseña
     const togglePasswordVisibility = () => {

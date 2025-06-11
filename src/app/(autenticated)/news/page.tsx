@@ -16,8 +16,6 @@ export default async function NewsPage() {
         redirect("/auth/login")
     }
 
-    const isMaster = session.user.role === "MASTER" || session.user.role === "SUPER_ADMIN"
-
     const news = await getNewsByDojoId(session.user.dojo?.id || "")
 
     return (

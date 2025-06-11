@@ -1,10 +1,8 @@
 "use client"
 
 import { newNew } from "@/actions"
-import { newSession } from "@/actions/sessions/newSession"
-import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Input, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Textarea } from "@/components"
+import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Input, Label, Textarea } from "@/components"
 import { motion } from "framer-motion"
-import { CalendarIcon, Clock, MapPin, Users } from "lucide-react"
 import { useState } from "react"
 
 interface Props {
@@ -27,11 +25,6 @@ export function ClassForm({ dojoId }: Props) {
             ...prev,
             [field]: value,
         }))
-    }
-
-    // Función para combinar fecha y hora en un objeto Date
-    const createDateTime = (date: string, time: string): Date => {
-        return new Date(`${date}T${time}`)
     }
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -62,18 +55,13 @@ export function ClassForm({ dojoId }: Props) {
                 description: ""
             })
             window.location.replace('/news')
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error("Error al publicar la noticia:", error)
-            setFormError(error.message || "Error al programar la clase. Inténtalo de nuevo.")
+            const message = error instanceof Error ? error.message : "Error al programar la clase. Inténtalo de nuevo.";
+            setFormError(message)
         } finally {
             setIsLoading(false)
         }
-    }
-
-    // Obtener la fecha mínima (hoy)
-    const getMinDate = () => {
-        const today = new Date()
-        return today.toISOString().split("T")[0]
     }
 
     return (

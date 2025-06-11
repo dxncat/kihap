@@ -29,7 +29,7 @@ export function SearchFilter({ currentSearch }: SearchFilterProps) {
                 router.replace(`?${params.toString()}`)
             })
         }, 500), // 500ms de delay
-        [searchParams, router],
+        [searchParams, router, startTransition],
     )
 
     // Efecto para manejar el debounce

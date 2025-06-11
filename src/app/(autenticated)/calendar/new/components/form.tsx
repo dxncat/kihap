@@ -3,7 +3,7 @@
 import { newSession } from "@/actions/sessions/newSession"
 import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Input, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Textarea } from "@/components"
 import { motion } from "framer-motion"
-import { CalendarIcon, Clock, MapPin, Users } from "lucide-react"
+import { CalendarIcon, Clock } from "lucide-react"
 import { useState } from "react"
 
 interface Props {
@@ -94,9 +94,10 @@ export function ClassForm({ ranks, dojoId }: Props) {
                 rankId: "",
             })
             window.location.replace('/calendar')
-        } catch (error: any) {
+        } catch (error: unknown) {
             console.error("Error al programar la clase:", error)
-            setFormError(error.message || "Error al programar la clase. Inténtalo de nuevo.")
+            const message = error instanceof Error ? error.message : "Error al programar la clase. Inténtalo de nuevo.";
+            setFormError(message)
         } finally {
             setIsLoading(false)
         }
