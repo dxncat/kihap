@@ -6,15 +6,12 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
 interface Props {
-    params: {
-        id: string;
-    };
+    id: string;
 }
 
-export default async function Profile({ params }: Props) {
-    const { id } = params; // params ya es un objeto, no una promesa
+export default async function Profile({ id }: Props) {
 
-    const session_to = await getSessionById(id)
+    const session_to = await getSessionById(await id)
 
     if (!session_to) {
         return (
