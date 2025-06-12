@@ -5,13 +5,14 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
-interface Props {
-    id: string;
-}
+export default async function Profile({
+    params,
+}: {
+    params: { id: string };
+}) {
+    const { id } = params; // No need for await here
 
-export default async function Profile({ id }: Props) {
-
-    const session_to = await getSessionById(await id)
+    const session_to = await getSessionById(id);
 
     if (!session_to) {
         return (
@@ -21,7 +22,7 @@ export default async function Profile({ id }: Props) {
         );
     }
 
-    const students = await getStudentsByRankId(session_to.rankId)
+    const students = await getStudentsByRankId(session_to.rankId);
 
     if (!students) {
         return (
@@ -31,19 +32,17 @@ export default async function Profile({ id }: Props) {
         );
     }
 
-    const attendance = await getStudentAttendance({ sessionId: id, studentId: students[0].id })
+    const attendance = await getStudentAttendance({ sessionId: id, studentId: students[0].id });
     if ('error' in attendance) {
         console.log('Attendance error:', attendance.error);
     } else {
         console.log('Attendance data:', attendance);
     }
 
-
     return (
         <div className="min-h-screen mx-auto px-4 py-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 {students.map((student) => {
-
                     return (
                         <Card
                             key={student.id}
@@ -63,7 +62,9 @@ export default async function Profile({ id }: Props) {
                                             <h3 className="text-white font-semibold truncate">{student.User.name}</h3>
                                         </div>
 
-                                        <Badge className={`${getBeltColor(student.Rank.name)} mb-3 text-xs whitespace-normal break-words`}>{student.Rank.name}</Badge>
+                                        <Badge className={`${getBeltColor(student.Rank.name)} mb-3 text-xs whitespace-normal break-words`}>
+                                            {student.Rank.name}
+                                        </Badge>
 
                                         <div className="mt-4 flex gap-2">
                                             <Button
@@ -77,9 +78,9 @@ export default async function Profile({ id }: Props) {
                                 </div>
                             </CardContent>
                         </Card>
-                    )
+                    );
                 })}
             </div>
         </div>
-    )
+    );
 }
