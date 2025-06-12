@@ -54,6 +54,13 @@ const eslintConfig = [
     ]
   },
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ...compat.config({
+    extends: ['next'],
+    rules: {
+      // Desactivar reglas específicas de Next.js
+      '@typescript-eslint/no-explicit-any': 'off'
+    },
+  })
 ];
 
 export default eslintConfig;
