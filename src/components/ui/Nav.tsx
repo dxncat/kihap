@@ -93,6 +93,13 @@ export function Nav() {
                         <Link href="/calendar" className="block text-white/80 hover:text-white transition-colors">
                             Calendario
                         </Link>
+                        {
+                            isAdmin && (
+                                <Link href="/students" className="block text-white/80 hover:text-white transition-colors">
+                                    Estudiantes
+                                </Link>
+                            )
+                        }
                         <Link href="/news" className="block text-white/80 hover:text-white transition-colors">
                             Noticias
                         </Link>

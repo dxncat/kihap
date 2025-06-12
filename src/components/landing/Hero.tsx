@@ -21,6 +21,14 @@ export function Hero() {
             </motion.div>
 
             <div className="relative z-10 container mx-auto px-4 text-center">
+                <div className="md:hidden">
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                </div>
                 <motion.div
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}

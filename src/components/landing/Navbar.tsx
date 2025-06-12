@@ -71,8 +71,10 @@ export function Navbar() {
                         <Link href="/contact" className="block text-white/80 hover:text-white transition-colors">
                             Contacto
                         </Link>
-                        <Link href={'/auth/login'} className="w-full bg-gradient-to-r from-red-500 to-yellow-500 hover:from-red-600 hover:to-yellow-600">
-                            Comenzar Ahora
+                        <Link href={'/auth/login'} >
+                            <Button className="bg-gradient-to-r from-red-500 to-yellow-500 hover:from-red-600 hover:to-yellow-600 w-full">
+                                Comenzar Ahora
+                            </Button>
                         </Link>
                     </div>
                 </motion.div>
