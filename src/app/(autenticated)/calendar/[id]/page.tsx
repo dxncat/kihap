@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default async function Profile({ params }: Props) {
-    const { id } = await params;
+    const { id } = params; // params ya es un objeto, no una promesa
 
     const session_to = await getSessionById(id)
 
