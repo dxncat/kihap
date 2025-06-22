@@ -7,7 +7,11 @@ export async function getDojoById(dojoId: string) {
         const dojo = prisma.dojo.findUnique({
             where: { id: dojoId },
             include: {
-                Master: true
+                Master: {
+                    include: {
+                        User: true
+                    }
+                }
             }
         });
         return dojo;

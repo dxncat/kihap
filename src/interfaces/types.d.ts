@@ -1,3 +1,9 @@
+export interface Master {
+    id: string
+    userId: string
+    User: User 
+}
+
 export interface Rank {
     id: number
     name: string
@@ -32,7 +38,7 @@ export interface Dojo {
     description?: string | null
     createdAt: Date
     masterId: string
-    master?: User | null
+    Master?: Master | null
 }
 
 export interface User {

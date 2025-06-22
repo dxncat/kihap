@@ -14,6 +14,7 @@ interface Props {
 }
 
 export function DojoInformation({ dojo, isMaster, students }: Props) {
+
     const formatDate = (dateString: Date) => {
         return new Date(dateString).toLocaleDateString("es-ES", {
             year: "numeric",
@@ -69,7 +70,7 @@ export function DojoInformation({ dojo, isMaster, students }: Props) {
                             </p>
                             <div className="flex items-center text-white/80">
                                 <GraduationCap className="w-4 h-4 mr-2 text-red-400" />
-                                <p>Maestro: {dojo.master?.name || "Maestro no asignado"}</p>
+                                <p>Maestro: {dojo.Master?.User.name || "Maestro no asignado"}</p>
                             </div>
                             {isMaster && <EditDojoDialog students={students} dojo={dojo} onSave={handleSaveDojoInfo} />}
                         </div>
